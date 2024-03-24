@@ -1,0 +1,75 @@
+<html>
+    <style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 25%;
+      }
+      
+      td, th {
+        border: 1px solid hwb(0 13% 31%);
+        text-align: left;
+        padding: 8px;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+      </style> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <body>
+        <form method="POST" action="">
+            {% csrf_token %}
+   
+             
+            
+            {% if orderfield %}
+            <label>customer  ID</label>
+                <input value="{{orderfield.id }}" readonly><br>
+            <label>customer  Name</label>    
+                <input value="{{ orderfield.name }}" readonly><br>
+            {% endif %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cakes</th>
+                        <th>Cakecost</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+                        <!-- <th>TotalAmount</th> -->
+                        <th>order id</th>
+                        
+            
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in customerorder %}
+                    <tr>
+                        <td>{{i.Cakes.name}}</td>
+                        <td>{{i.Cakes.cost}}</td>
+                        <td>{{i.Quantity}}</td>
+                        <td>{{i.Amount}}</td>
+                        <!-- <td>{{i.TotalAmount}}</td> -->
+                        <td>{{i.id}}</td>
+                    </tr>
+                    {% endfor %}
+ 
+            
+                </tbody>
+ 
+
+            </table>    
+            
+
+            <label>Total History Amount</label>    
+            <input value="{{totalhistoryamount}}" readonly><br>
+            
+        </form>
+        <a href="{% url 'dash' %}" style="color: Brown; font-size: 15px;" class='gfg-button'>
+            <button type="button">Back to home</button>
+         </a> 
+         
+    </body>
+</html>

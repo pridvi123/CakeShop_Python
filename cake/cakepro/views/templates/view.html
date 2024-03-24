@@ -1,0 +1,72 @@
+<html>
+    <style>    
+        table {
+            font-family: arial, sans-serif;
+            /* border-collapse: collapse; */
+            border: 1px solid #08070b;
+            width: 25%;
+          }
+          
+          td, th {
+            border: 1px solid #8a72f7;
+            text-align: left;
+            padding: 8px;
+          }
+          
+          tr:nth-child(even) {
+            background-color: #f47fcd;
+          }
+          .custom-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #311603; /* Set the background color */
+    color: white; /* Set the text color */
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  /* Change the link appearance on hover */
+  .custom-link:hover {
+    background-color: #02191f; /* Change the background color on hover */
+  }
+          </style> 
+    <body style="background-color:rgba(123, 185, 217, 0.624);">
+        <table>
+            <p1>Select Customer Orders to views orders </p1>
+            <a href="{% url 'customer_order' %}" type="button"  class="custom-link">Customer Orders</a>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Address</th>
+                    <th colspan="2">Action</th>
+ 
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in customerdetail %}
+                <tr>
+                    <td>{{i.name}}</td>
+                    <td>{{i.mob}}</td>
+                    <td>{{i.address}}</td>
+
+ 
+                     <td>
+                        <a href='/cutomerup/{{i.id}}/' type="button" >Update</a>
+                        <a href='/customerdelete/{{i.id}}/' type="button" >Delete</a>
+                     </td>
+
+    
+                </tr>
+                {% endfor %}
+
+            </tbody>
+            
+        </table>
+        <a href="{% url 'customeradd' %}" type="button" >Back</a>
+
+    </body>
+
+</html>

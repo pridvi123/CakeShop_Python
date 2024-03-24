@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            color: #333;
+        }
+        label {
+            color: #555;
+        }
+        input[type="text"],
+        input[type="password"] {
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+        }
+        button[type="submit"] {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0b7dda;
+        }
+        .message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Signup</h2>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="username">Create Username:</label>
+        <input type="text" id="username" class="username" name="username" required><br>
+        <label for="password">Create Password:</label>
+        <input type="password" id="password" class="password" name="password" required><br>
+        <button type="submit" class="submit_1">Sign Up</button>
+    </form>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        alert('l');
+        $(".Submit_1").click(function(event) {
+            alert('m');
+          var nameValue = $(".username").val();
+          var costValue = $(".password").val();
+          var formIsValid = true; 
+      
+          if (nameValue == "") {
+            event.preventDefault();  
+            formIsValid = false;  
+            $(".username").addClass('con_error');
+       
+          } 
+       
+      
+          if (costValue == "") {
+            event.preventDefault();
+            formIsValid = false;
+            $(".password").addClass('con_error');
+       
+          }
+       
+        });
+      });
+      $('.username').keypress(function(){
+  var temp = $('.username').removeClass('con_error');
+  console.log(temp);
+})
+ 
+$('.password').keypress(function(){
+  var temp = $('.password').removeClass('con_error');
+  console.log('cost',temp);})
+</script>
+</html>

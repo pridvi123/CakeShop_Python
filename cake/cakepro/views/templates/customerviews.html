@@ -1,0 +1,93 @@
+<html>
+    <style>
+        
+ 
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 50%;
+          }
+          
+          td, th {
+            border: 1px solid hwb(94 8% 15% / 0.47);
+            text-align: left;
+            padding: 8px;
+          }
+          
+          tr:nth-child(even) {
+            background-color: #bdafaf;
+          }
+
+          .gfg-button {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #0f0116;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.gfg-button:hover {
+  background-color: #c8d2dc;
+}
+
+          </style> 
+    <body>
+
+        </td>
+        <table>
+
+            <thead>
+                <tr>
+                    <td>
+                        <td>
+                            <td>
+                                <td>
+                                    <td>
+                                         
+                                        <a href="{% url 'dash' %}" style="color: rgb(14, 1, 1); font-size: 15px;" class='gfg-button'>
+                                          <button type="button">Back to home</button>
+                                       </a> 
+            
+                                    </td>
+                                </td>
+                            </td>
+                        </td>  
+                </tr>
+                <tr>
+                   <th>S.No</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Address</th>
+                    <th colspan="1">Action</th>
+        
+                </tr>
+            </thead>
+
+            <tbody>
+
+    
+                {% for i in orderfield %}
+                <tr>
+                    
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.name}}</td>
+                    <td>{{i.mob}}</td>
+                    <td>{{i.address}}</td>
+         
+        
+                     <td>
+                        <a href="{% url 'viewsorder' pk=i.id %}" type="button" >views</a>
+         
+                     </td>
+        
+                </tr>
+                {% endfor %}
+        
+            </tbody>
+
+        </table>
+    </body>
+</html>

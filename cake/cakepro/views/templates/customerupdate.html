@@ -1,0 +1,19 @@
+<html>
+    <body style="background-color:rgba(138, 11, 128, 0.624);">
+        <form method="POST" action="{% url 'customerupdate' customer.id %}">
+            {% csrf_token %}
+         
+            <label name="name"style="color:Black;font-size:30px;">Name</label>
+            <input type="text" name="name" value="{{customer.name}}">  
+            <label name="email"style="color:Black;font-size:30px;">Mobile</label> 
+            <input type="text" name="mob" value="{{customer.mob}}" >
+            <label name="phone"style="color:Black;font-size:30px;">Address</label>
+            <input type="text" name="address" value="{{customer.address}}">
+        
+             
+            <button type="submit"style="color:Brown;font-size:15px;">SUBMIT</button>
+            <button type="button"style="color:Brown;font-size:15px;" >Back</button>
+        
+             </form>
+    </body>
+</html>

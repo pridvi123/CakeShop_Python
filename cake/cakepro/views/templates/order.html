@@ -1,0 +1,386 @@
+<html>
+     
+        <style>
+        
+ 
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 25%;
+      }
+      
+      td, th {
+        border: 1px solid hwb(252 45% 41% / 0.396);
+        text-align: left;
+        padding: 8px;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #c8d4d37d;
+      }
+      .custom-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #02061c; /* Set the background color */
+    color: white; /* Set the text color */
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .con_error {
+    border: 2px solid red;
+    background-color: #ffecec;
+  
+    padding: 5px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+  /* Change the link appearance on hover */
+  .custom-link:hover {
+    background-color: #2c1102; /* Change the background color on hover */
+  }
+
+  .gfg-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #0f0116;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
+
+    
+    </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <body style="background-color:rgba(9, 3, 44, 0.478);">
+    <form method="POST" action="{% url 'customer_order' %}">
+      {% csrf_token %}
+      <table id="addcustomer">
+        <tr>
+          <td><label for="selectedCustomer">Select Customer:</label>
+            <select class=" customer"id ="customer"  name="Customer">
+              <option value="" selected disabled>-- Select --</option>
+              {% for custom in customer %}
+                  <option value="{{ custom.id}}">{{ custom.name }}</option>
+                  
+              {% endfor %}
+          </select>
+          <br>
+        </td>
+        </tr>
+         
+       
+         <div id="custom"> 
+        <tr> 
+          <td>
+            <label for="selectedCake" style="color: black; font-size: 25px;">Cake</label>
+            <select class="cake" name="Cakes" id="ca">
+              <option value="" selected disabled>-- Select --</option>
+              {% for cake in cakes %}
+                  <option value="{{ cake.id }}" data-cost="{{ cake.cost }}">{{ cake.name }}</option>
+              {% endfor %}
+            </select>
+          </td>
+          <td> 
+            <label name="Quantity"style="color:Black;font-size:25px;">Quantity</label>
+            <input type="text"  name="Quantity" id='quantity' class="Quan" >
+           </td>
+           <td>
+            <label name="Amount"style="color:Black;font-size:25px;">Amount</label>
+            <input type="text" name="Amount" id="amount" class="quantityamount" readonly>
+           </td>
+           <td>
+            <label for="selectedCake" style="color: black; font-size: 20px;"> cost/Kg </label>
+            <input type="text" id="Cakecost" name="selectedCake" readonly>
+           </td>
+           
+
+          </div>
+
+
+           <td>
+            <label for="selectedCustomer"  style="color: black; font-size: 20px;">Customer</label>
+            <input type="text" id="Custom" readonly >
+            <input type="hidden" name="{{customer.name}}">
+          </td>
+         
+            <td>
+              <button type="button" id="add-button" style="color: rgb(200, 5, 5); font-size: 15px;">AddMore</button><br><br>
+             </td>
+           <tr> 
+             <label name="totalAmount"style="color:Black;font-size:30px;">TotalAmount</label>
+          <input type="text" name="totalAmount" id='totalamount'class='inputamount'readonly >
+          <button type="button"style="color:Brown;font-size:15px;" class="totalamount">Total</button>
+       
+          <button type="submit"style="color:Brown;font-size:15px;" id="submit">Submit</button>
+        
+            <a href="{% url 'customerviews' %}" class="custom-link">Customerviews</a>
+            <a href="{% url 'dash' %}" style="color: Brown; font-size: 15px;" class='gfg-button'>
+              <button type="button">Back to home</button>
+           </a>  
+
+    </div> 
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+  
+  $(document).ready(function() {
+    var addButton = $("#add-button");
+    var container = $("#custom");
+    var fieldIndex = 1;
+    
+   
+    addButton.click(function() {
+     var location = $(this).closest('tbody')
+     console.log('location',location)
+      var fieldHTML = `
+       
+          <tr>
+          <td>
+            <label for="selectedCake" style="color: black; font-size: 25px;">Cake</label>
+            <select class="cake" name="Cakes" id="ca">
+              <option value="" selected disabled>-- Select --</option>
+              {% for cake in cakes %}
+                  <option value="{{ cake.id }}" data-cost="{{ cake.cost }}">{{ cake.name }}</option>
+              {% endfor %}
+            </select>
+          </td>
+          <td> 
+            <label name="Quantity"style="color:Black;font-size:25px;">Quantity</label>
+            <input type="text" name="Quantity" id='quantity' class="Quan">
+           </td>
+           <td>
+            <label name="Amount"style="color:Black;font-size:25px;">Amount</label>
+            <input type="text" name="Amount" id="amount" class="quantityamount" readonly>
+           </td>
+           <td>
+            <label for="selectedCake" style="color: black; font-size: 20px;"> cost/Kg </label>
+            <input type="text" id="Cakecost" name="selectedCake" readonly>
+           </td>
+           <td>
+            <button type="button" class="rem">Remove</button>
+          </td>
+           </tr>      
+      `;
+      
+      location.append(fieldHTML)
+      fieldIndex++;
+      
+
+    });
+ $(document).on('click', '.rem', function() {
+                $(this).closest('tr').remove();
+                console.log('alert')
+            });
+    
+
+ $(document).on('keyup','#quantity',function(){
+
+   let quantity = $(this).val()
+   let cakeid = $(this).closest('tr').find('.cake').val()
+   let totalamt = $(this).closest('tr').find('#amount')
+   let cost=$(this).closest('tr').find('#Cakecost')
+    $.ajax({
+         type: "POST",
+         headers: { "X-CSRFToken": "{{ csrf_token }}"},
+         url: "{% url 'TotalAmount' %}",
+         data: {'quantity':quantity,'cakeid':cakeid},
+         success: function(data){
+            console.log('Status Success',data.totalamount)
+            console.log(data);
+            cost.val(data.cakepercost)
+            totalamt.val(data.totalamount)
+            
+          }
+        });
+      });
+    });
+    $(document).on('change','.cake',function() {
+    
+      
+        let selectedOption = $(this).find(":selected");
+        let cakeCost = selectedOption.data("cost");
+        // console.log('selectedOption',selectedOption.val())
+        // $("#Cakecost").val(cakeCost);
+         $(this).closest('tr').find('#Cakecost').val(cakeCost)
+
+        });
+    $(document).on('change','.customer',function(){
+      const selectedOptionText = $(this).find('option:selected').text();
+            $('#Custom').val(selectedOptionText);
+   
+    });    
+        $('.totalamount').click(function() {
+                var total = 0;
+                $('.quantityamount').each(function() {
+                    var fieldValue = parseFloat($(this).val());
+                    if (!isNaN(fieldValue)) {
+                        total += fieldValue;
+                    }
+                });
+                $('.inputamount').val(total);
+                
+                // console.log(total)
+            });
+ $(document).ready(function() {          
+
+  $(document).on('keyup', '#quantity', function() {
+     var inputValue = $(this).val();
+     var regex = /^[0-9]+$/;
+     if (!regex.test(inputValue)) {
+      
+       $(this).val(inputValue.replace(/[^0-9]+/g, ''));
+     }
+   });   
+  });
+  
+  $(document).ready(function() {
+ 
+ var cakeName =  $('#ca').val();
+ console.log('cakenaem',cakeName);
+ if(cakeName == null){
+   $('#quantity').prop('readonly', true);
+ } 
+
+}); 
+
+$(document).on('change','.cake',function(){
+  $("#quantity").prop('readonly',false);
+
+})
+ 
+ 
+
+  $(document).ready(function() {
+  $("#submit").click(function(event) {
+    var custValue = $("#customer").val();
+    var cakeValue = $(".cake").val();
+    var quantValue= $('#qauntity').val();
+
+    var cakeoptions=$(this).closest('tr').next().find('.cake')
+    console.log(cakeoptions,'kk')
+     
+    var formIsValid = true; 
+
+    if (custValue == null) {
+      event.preventDefault();  
+      formIsValid = false;  
+      $("#customer").addClass('con_error');
+ 
+    } 
+ 
+$('.cake').each(function(){
+var cakeName = $(this).val();
+console.log(cakeName,"cN");
+
+   if (cakeName == null) {
+      event.preventDefault();  
+      formIsValid = false; 
+
+      $(this).addClass('con_error');
+ 
+    } 
+  }); 
+
+
+$('.Quan').each(function(){
+var QuanName = $(this).val();
+// alert(QuanName);
+console.log(QuanName,"Qn");
+
+   if (QuanName == "") {
+    event.preventDefault();  
+      formIsValid = false;
+      $(this).addClass('con_error');
+ 
+    } 
+  }); 
+ 
+  });
+});
+
+
+$(document).ready(function() {
+    var formIsValid = true;
+
+    $('#submit').click(function(event) {
+        var totalvalue = $('#totalamount').val();
+
+        if (totalvalue === '0' || totalvalue === ''){
+            event.preventDefault();
+            formIsValid = false;
+            $("#totalamount").addClass('con_error');
+        } else {
+            $("#totalamount").removeClass('con_error');
+            formIsValid = true;
+        }
+
+    });
+});
+$(document).ready(function() {
+    $('.totalamount').click(function() {
+        $("#totalamount").removeClass('con_error');
+    });
+
+    $('.totalamount').click(function(event) {
+        var totalvalue = $('#totalamount').val();
+
+        if (totalvalue === '') {
+            event.preventDefault();
+            $("#totalamount").addClass('con_error');
+        }
+    });
+});
+
+
+ 
+ 
+$('#ca').change(function(){
+  var temp = $('#ca').removeClass('con_error');
+  $(this).closest('tr').find('#ca').val
+  console.log('cost',temp);})
+
+ 
+     
+$('#customer').change(function(){
+  var temp = $('#customer').removeClass('con_error');
+  console.log('cost',temp);})
+
+
+
+  $(document).on('change', '.cake', function() {
+  $('.cake').each(function() {
+    var quantName = $(this).val();
+    console.log(quantName, "cN");
+
+    if (quantName !== "") {
+      $(this).removeClass('con_error');
+    }
+  });
+});
+      
+        
+$(document).on('input', '.Quan', function() { 
+$('.Quan').each(function(){
+var quantName = $(this).val();
+console.log(quantName,"cN");
+
+   if (quantName != "") {
+    $(this).removeClass('con_error');
+ 
+    } 
+  });
+});   
+     
+ 
+    </script>
+  </body>
+</html>

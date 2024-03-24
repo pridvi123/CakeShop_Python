@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: "Lato", sans-serif;
+  background-color: #552400ef;
+}
+.gfg-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #0c0b08;
+  color: #1c1d1a;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+#cakeapr{
+   margin-left: 550px;
+   font-size: 45px;
+  font-weight: bold; 
+}
+
+.gfg-button:hover {
+  background-color: #020e1b;
+}
+#toggleSidebar{
+    display: inline-block;
+  padding: 10px 20px;
+  background-color: #1d9cdb;
+  color: #060600;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  top:30px;
+
+}
+#toggleSidebar:hover {
+  background-color: #09c8bf;
+  border-top-right-radius:200px;
+   
+}
+ 
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.sidenav.active {
+  width: 250px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style> 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>Logout</title>
+</head>
+<body>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" id="toggleBtn">&times;</a>
+  <br>
+  <br>
+  <br>
+
+  <a href="{% url 'list' %}"><i class="fas fa-birthday-cake"></i> Cake</a>
+  <br>
+  <br>
+  <br>
+
+  <a href="{% url 'customeradd' %}"><i class="fas fa-user"></i> Customer</a>
+  <br>
+  <br>
+  <br>
+
+  <a href="{% url 'customerviews' %}"><i class="fas fa-users"></i> Clients</a>
+</a>
+<br>
+<br>
+<br>
+
+<a href="{% url 'customer_order' %}"><i class="fas fa-shopping-cart"></i> Customer Order</a>
+<br>
+<br>
+<br>
+
+<a href="{% url 'orderdetails' %}"><i class="fas fa-id-card"></i> <span>Customer Details</span></a>
+<br>
+<br>
+<br>
+
+<a href="{% url 'user_login' %}" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
+<br>
+<br>
+
+
+</div>
+<div id="cakeapr">
+    <p>
+      Cakes
+    </p>
+    <h2>Make every event a celebration
+        with Cake ice creams</h2>
+    <p>Weddings, birthdays, anniversaries, or any get-together; memorable occasions deserve mouth-watering flavours. So, place a Party Order, and we’ll bring to the bowl a variety of ice cream flavours that compliments every event. We adds MORE scoops of sweetness to all your celebrations.
+
+        Make your party memorable with Cake ice creams</p>
+</div>
+
+<button style="font-size:30px;cursor:pointer" id="toggleSidebar" type="button">Open</button>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+      $("#toggleSidebar").click(function() {
+        $(".sidenav").toggleClass("active");
+      });
+    
+      $(".closebtn").click(function() {
+        $(".sidenav").removeClass("active");
+      });
+    });
+    </script>
+    
+   
+</body>
+</html>
+
+
+ 

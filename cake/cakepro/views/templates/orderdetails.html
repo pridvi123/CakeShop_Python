@@ -1,0 +1,74 @@
+<html>
+    <style>
+        
+       table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 25%;
+          }
+          
+          td, th {
+            border: 1px solid hwb(208 35% 27%);
+            text-align: left;
+            padding: 8px;
+          }
+          
+          tr:nth-child(even) {
+            background-color: #dddddd;
+          }
+          #home{
+            margin-left:540px;
+          }
+          .gfg-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #0f0116;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+          </style> 
+          
+    <body>
+        <form method="POST" action="{% url 'customer_order' %}">
+            {% csrf_token %}
+            <table>
+               <div id="home">
+                <a href="{% url 'dash' %}" style="color: rgb(14, 1, 1); font-size: 15px;" class='gfg-button'>
+                    <button type="button">Back to home</button>
+               </div>
+                <thead>
+                    <tr>
+                        <th>Cakes</th>
+                        <th>Customer</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+                        <th>TotalAmount</th>
+                        <th colspan="2">Action</th>
+        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in orderfield %}
+                    <tr>
+                        <td>{{i.Cakes.name}}</td>
+                        <td>{{i.Customer.name}}</td>
+                        <td>{{i.Quantity}}</td>
+                        <td>{{i.Amount}}</td>
+                        <td>{{i.TotalAmount}}</td>
+        
+                         <td>
+                            <a href='/update/{{i.id}}/' type="button" >Update</a>
+                            <a href='/delete_order/{{i.id}}/' type="button" >Delete</a>
+                         </td>
+        
+                    </tr>
+                    {% endfor %}
+        
+                </tbody>
+            </table>
+        </form>
+    </body>
+</html>

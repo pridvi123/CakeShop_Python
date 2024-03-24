@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>    
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 25%;
+      }
+      
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+      .gfg-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #0f0116;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.con_error {
+    border: 2px solid red;
+    background-color: #ffecec;
+  
+    padding: 5px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.gfg-button:hover {
+  background-color: #020e1b;
+}
+      </style>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color:rgba(182, 107, 9, 0.027);">
+    <form method="POST" action="{% url 'cakes' %}">
+        {% csrf_token %}
+        <label name="name"style="color:Black;font-size:40px;" >Name</label>
+        <input type="text" id="name1" class="field" name="name"> 
+        <label name="email"style="color:Black;font-size:40px;">Weight</label> 
+        <input type="text" name="weight" value="1KG"readonly >
+        <label name="phone"style="color:Black;font-size:40px;">Cost</label>
+        <input type="text"  id="cost1" name="cost">
+    
+        <button type="submit" id="Submit" style="color:Brown;font-size:20px;">Submit</button>
+        <a href="{% url 'dash' %}" style="color: Brown; font-size: 15px;" class='gfg-button'>
+          <button type="button">Back to home</button>
+       </a>
+    
+         </form>
+         <p>Add Customer</p>
+ 
+            <a class="gfg-button" href="{% url 'customeradd' %}">
+                <span class="button-text">add</span>
+              </a>
+
+         <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Weight</th>
+                    <th>Cost</th>
+                    <th colspan="2">Action</th>
+ 
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in all %}
+                <tr>
+                    <td>{{i.name}}</td>
+                    <td>{{i.weight}}</td>
+                    <td>{{i.cost}}</td>
+ 
+                     <td>
+                        <a href='/update/{{i.id}}/' type="button" >Update</a>
+                        <a href='/delete/{{i.id}}/' type="button" >Delete</a>
+                     </td>
+    
+                </tr>
+                {% endfor %}
+    
+            </tbody>
+        </table>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+ 
+  $(document).on('keyup', '#name1', function() {
+     
+    var inputValue = $(this).val();
+    
+    var regex = /^[A-Za-z\s]+$/;
+    if (!regex.test(inputValue)) {
+      $(this).val(inputValue.replace(/[^A-Za-z\s]+/g, ''));
+       }
+  });
+
+  $(document).on('keyup', '#cost1', function() {
+     
+    var inputValue = $(this).val();
+    
+    var regex = /^[0-9]+$/;
+
+    if (!regex.test(inputValue)) {
+     
+      $(this).val(inputValue.replace(/[^0-9]+/g, ''));
+    }
+  });
+
+ 
+
+  $(document).ready(function() {
+  $("#Submit").click(function(event) {
+    var nameValue = $("#name1").val();
+    var costValue = $("#cost1").val();
+    var formIsValid = true; 
+
+    if (nameValue == "") {
+      event.preventDefault();  
+      formIsValid = false;  
+      $("#name1").addClass('con_error');
+ 
+    } 
+ 
+
+    if (costValue == "") {
+      event.preventDefault();
+      formIsValid = false;
+      $("#cost1").addClass('con_error');
+ 
+    }
+ 
+  });
+});
+  });
+$('#name1').keypress(function(){
+  var temp = $('#name1').removeClass('con_error');
+  console.log(temp);
+})
+ 
+$('#cost1').keypress(function(){
+  var temp = $('#cost1').removeClass('con_error');
+  console.log('cost',temp);})
+ 
+ 
+ 
+    </script>
+    
+</body>
+</html>

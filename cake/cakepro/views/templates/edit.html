@@ -1,0 +1,21 @@
+<html>
+    <body>
+        <html>
+    
+    <body style="background-color:rgba(166, 241, 205, 0.624);">
+        <form method="POST" action=''>
+            {% csrf_token %}
+            <label name="name"style="color:Black;font-size:40px;" >Name</label>
+            <input type="text" name="name" value="{{all.name}}"> 
+            <label name="email"style="color:Black;font-size:40px;">Weight</label> 
+            <input type="text" name="weight" value="{{all.weight}}">
+            <label name="phone"style="color:Black;font-size:40px;">Cost</label>
+            <input type="text" name="cost" value="{{all.cost}}">
+        
+            <button type="submit"style="color:Brown;font-size:20px;">Submit</button>
+        
+             </form>
+           
+    </body>
+</html>
+    

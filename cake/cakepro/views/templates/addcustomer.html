@@ -1,0 +1,109 @@
+<html>
+  <style>
+    .con_error {
+    border: 2px solid red;
+    background-color: #ffecec;
+  
+    padding: 5px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.gfg-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #110111;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+  </style>
+  <body style="background-color:rgba(115, 235, 237, 0.478);">
+    <form method="POST" action="{% url 'customeradd' %}">
+      {% csrf_token %}
+   
+      <label name="name"style="color:Black;font-size:30px;" >Name</label>
+      <input type="text"class=field id="name2" name="name"> 
+      <label name="email"style="color:Black;font-size:30px;">Mobile</label> 
+      <input type="text" class=field id="mobile" name="mob" >
+      <label name="phone"style="color:Black;font-size:30px;">Address</label>
+      <input type="text" id="address" name="address">
+  
+       
+      <button type="submit"style="color:Brown;font-size:15px;" id="view">View</button>
+      <a href="{% url 'dash' %}" style="color: Brown; font-size: 15px;" class='gfg-button'>
+        <button type="button">Back to home</button>
+     </a>
+  
+       </form>
+       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+       <script>
+   $(document).ready(function() {
+ 
+ $(document).on('keyup', '#name2', function() {
+    
+   var inputValue = $(this).val();
+   
+   var regex = /^[A-Za-z\s]+$/;
+   if (!regex.test(inputValue)) {
+     $(this).val(inputValue.replace(/[^A-Za-z\s]+/g, ''));
+      }
+ });
+ $(document).on('keyup', '#mobile', function() {
+      var inputValue = $(this).val();
+      var regex = /^\d{10}$/;
+      if (!regex.test(inputValue)) {
+ 
+        $(this).val(inputValue.replace(/\D/g, '').substr(0, 10));
+      }
+    });
+    });
+  $(document).ready(function() {
+  $("#view").click(function(event) {
+    var nameValue = $("#name2").val();
+    var mobValue = $("#mobile").val();
+    var addressValue = $("#address").val();
+    var formIsValid = true; 
+
+    if (nameValue == "") {
+      event.preventDefault();  
+      formIsValid = false;  
+      $("#name2").addClass('con_error');
+ 
+    } 
+
+    if (mobValue == "") {
+      event.preventDefault();  
+      formIsValid = false;  
+      $("#mobile").addClass('con_error');
+ 
+    } 
+ 
+
+    if (addressValue == "") {
+      event.preventDefault();
+      formIsValid = false;
+      $("#address").addClass('con_error');
+ 
+    }
+ 
+  });
+});
+  
+$('#name2').keypress(function(){
+  var temp = $('#name2').removeClass('con_error');
+  console.log(temp);
+})
+ 
+$('#mobile').keypress(function(){
+  var temp = $('#mobile').removeClass('con_error');
+  console.log('cost',temp);})
+
+$('#address').keypress(function(){
+  var temp = $('#address').removeClass('con_error');
+  })  
+  
+       </script>
+  </body>
+</html>
